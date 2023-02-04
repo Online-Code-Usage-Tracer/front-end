@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import './FirstChart.css';
+import './LinearChart.css';
 import {CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 
-export function FirstChart({data, yLabels}: { data: any, yLabels: string[] }) {
+export function LinearChart({data, yLabels}: { data: any, yLabels: string[] }) {
     const initial = {mean: 0, max: 0, min: Number.POSITIVE_INFINITY}
     const colors = ['#8884d8', '#82ca9d', '#ad7e25', '#ff0000', '#00ff00', '#0000ff', '#000000', '#ffffff']
     const [analysis, setAnalysis] = useState<any>(initial)

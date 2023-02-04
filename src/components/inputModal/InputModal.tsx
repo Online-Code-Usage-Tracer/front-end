@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import "./InputModal.css"
 import {atom, useRecoilState} from "recoil";
 import {CircularProgress} from "@mui/material";
@@ -10,7 +10,7 @@ export const inputModalDisplayState = atom<'none' | 'block'>({
     default: 'block'
 })
 
-const datasets: string[] = ['A', 'B', 'C']
+const datasets: string[] = ['image_stitching', 'B', 'C']
 export const datasetNameState = atom<string>({
     key: 'datasetNameState',
     default: 'A'
@@ -25,7 +25,6 @@ export function InputModal() {
     const [modalDisplay, setModalDisplayState] = useRecoilState(inputModalDisplayState)
     const [datasetName, setDatasetName] = useRecoilState(datasetNameState)
     const [url, setUrl] = useRecoilState(urlState)
-    const confirmationModalDivRef = useRef<HTMLDivElement | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
 

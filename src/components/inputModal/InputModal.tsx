@@ -7,7 +7,7 @@ import {onAxiosError, onAxiosSuccess} from "../../global/Errors";
 
 export const inputModalDisplayState = atom<'none' | 'block'>({
     key: 'inputModalDisplayState',
-    default: 'none'
+    default: 'block'
 })
 
 const datasets: string[] = ['image_stitching', 'B', 'C']

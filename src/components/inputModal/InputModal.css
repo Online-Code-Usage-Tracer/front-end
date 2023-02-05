@@ -32,6 +32,11 @@
     text-align: center;
 }
 
+#circular_progress {
+    color: #3D195B;
+
+}
+
 #input-container {
     display: flex;
     padding-bottom: 20px;

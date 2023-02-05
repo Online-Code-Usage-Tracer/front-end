@@ -6,25 +6,26 @@ import {LinearChart} from "./linearChart/LinearChart";
 import {PieChart2d} from "./pieChart2d/PieChart2d";
 import {axiosIostat} from "../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess} from "../../global/Errors";
+import {CircularProgress} from "@mui/material";
 
 export function Charts() {
     const modalDisplay = useRecoilValue(inputModalDisplayState)
     type iostatType = [
         {
             diagram: string,
-            data: {time: number, "% CPU": number}[]
+            data: { time: number, "% CPU": number }[]
         },
         {
             diagram: string,
-            data: {time: number, "% Disk": number}[]
+            data: { time: number, "% Disk": number }[]
         },
         {
             diagram: string,
-            data: {time: number, "Read (MB/s)": number, "Write (MB/s)": number}[]
+            data: { time: number, "Read (MB/s)": number, "Write (MB/s)": number }[]
         },
         {
             diagram: string,
-            data: {time: number, "Read (MB/s)": number, "Write (MB/s)": number, "% Disk": number}[]
+            data: { time: number, "Read (MB/s)": number, "Write (MB/s)": number, "% Disk": number }[]
         }
     ]
 
@@ -53,11 +54,17 @@ export function Charts() {
 
     return (
         <div>
-            <LinearChart data={iostat?.at(0)} yLabels={['% CPU']}/>
-            <LinearChart data={iostat?.at(1)} yLabels={['% Disk']}/>
-            <LinearChart data={iostat?.at(2)} yLabels={['Read (MB/s)', 'Write (MB/s)']}/>
-            <LinearChart data={iostat?.at(3)} yLabels={['Read (MB/s)', 'Write (MB/s)', '% Disk']}/>
-            {/*<PieChart2d data={blktrace[1]}/>*/}
+            {
+                iostat === undefined ?
+                    <CircularProgress/> :
+                    <div>
+                        <LinearChart data={iostat?.at(0)} yLabels={['% CPU']}/>
+                        <LinearChart data={iostat?.at(1)} yLabels={['% Disk']}/>
+                        <LinearChart data={iostat?.at(2)} yLabels={['Read (MB/s)', 'Write (MB/s)']}/>
+                        <LinearChart data={iostat?.at(3)} yLabels={['Read (MB/s)', 'Write (MB/s)', '% Disk']}/>
+                        {/*<PieChart2d data={blktrace[1]}/>*/}
+                    </div>
+            }
         </div>
     );
 }

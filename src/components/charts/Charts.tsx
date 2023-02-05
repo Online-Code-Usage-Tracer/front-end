@@ -4,77 +4,43 @@ import {useRecoilValue} from "recoil";
 import {inputModalDisplayState} from "../inputModal/InputModal";
 import {LinearChart} from "./linearChart/LinearChart";
 import {PieChart2d} from "./pieChart2d/PieChart2d";
+import {axiosIostat} from "../../global/ApiCalls";
+import {onAxiosError, onAxiosSuccess} from "../../global/Errors";
 
 export function Charts() {
     const modalDisplay = useRecoilValue(inputModalDisplayState)
-    const [iostat, setIostat] = useState<any>({1: [], 2: [], 3: [], 4: []})
+    type iostatType = [
+        {
+            diagram: string,
+            data: {time: number, "% CPU": number}[]
+        },
+        {
+            diagram: string,
+            data: {time: number, "% Disk": number}[]
+        },
+        {
+            diagram: string,
+            data: {time: number, "Read (MB/s)": number, "Write (MB/s)": number}[]
+        },
+        {
+            diagram: string,
+            data: {time: number, "Read (MB/s)": number, "Write (MB/s)": number, "% Disk": number}[]
+        }
+    ]
+
+    const [iostat, setIostat] = useState<iostatType | undefined>(undefined)
     const [blktrace, setBlktrace] = useState<any>({1: [], 2: [], 3: [], 4: []})
-    let a = 0;
-
-    let answer = {
-        1:
-            [
-                {'x': '10:22', 'y': 10.5},
-                {'x': '10:23', 'y': 11},
-                {'x': '10:24', 'y': 10.5},
-                {'x': '10:25', 'y': 20}
-            ],
-        2:
-            [
-                {'x': '10:22', 'y': 10.5},
-                {'x': '10:23', 'y': 11},
-                {'x': '10:24', 'y': 10.5}
-            ],
-        3:
-            [
-                {'x': '10:22', 'read': 10.5, 'write': 15.5},
-                {'x': '10:23', 'read': 11, write: 15.5},
-                {'x': '10:24', 'read': 10.5, write: 15.5}
-            ],
-        4:
-            [
-                {x: '10:22', y: 10.5, read: 10.5, write: 15.5},
-                {x: '10:23', y: 11, read: 11, write: 15.5},
-                {x: '10:24', y: 10.5, read: 10.5, write: 15.5}
-            ]
-    }
-
-    let answer2 = {
-        1: [["Task", "Hours per Day"], ['read', 10],
-            ['write', 90]],
-        2:
-            [
-                {'x': '10:22', 'y': 10.5},
-                {'x': '10:23', 'y': 11},
-                {'x': '10:24', 'y': 10.5}
-            ],
-        3:
-            [
-                {'x': '10:22', 'read': 10.5, 'write': 15.5},
-                {'x': '10:23', 'read': 11, write: 15.5},
-                {'x': '10:24', 'read': 10.5, write: 15.5}
-            ],
-        4:
-            [
-                {x: '10:22', y: 10.5, read: 10.5, write: 15.5},
-                {x: '10:23', y: 11, read: 11, write: 15.5},
-                {x: '10:24', y: 10.5, read: 10.5, write: 15.5}
-            ]
-    }
 
     function every() {
-        answer = {...iostat}
-        answer[1].push({'x': `10:${30 + a}`, 'y': 10.5 + a})
-        answer[2].push({'x': `10:${40 + a}`, 'y': 20.5 + a})
-        answer[3].push({x: `10:${30 + a}`, read: 10.5 + 2 * a, write: 15.5 + a})
-        answer[4].push({x: `10:${30 + a}`, y: 10.5 + a, read: 10.5 + 2 * a, write: 15.5 + a})
-
-        answer2 = {...blktrace}
-        answer2[1] = [["Task", "Hours per Day"], ['read', 10 + a],
-            ['write', 90 - a]]
-
-        ++a
-        setBlktrace(answer2)
+        axiosIostat().then(
+            res =>
+                onAxiosSuccess({
+                    res: res, onSuccess: () => setIostat(res.data)
+                })
+            ,
+            error =>
+                onAxiosError({axiosError: error})
+        )
     }
 
     useEffect(() => {
@@ -87,11 +53,11 @@ export function Charts() {
 
     return (
         <div>
-            <LinearChart data={iostat[1]} yLabels={['y']}/>
-            <LinearChart data={iostat[2]} yLabels={['y']}/>
-            <LinearChart data={iostat[3]} yLabels={['read', 'write']}/>
-            <LinearChart data={iostat[4]} yLabels={['y', 'read', 'write']}/>
-            <PieChart2d data={blktrace[1]}/>
+            <LinearChart data={iostat?.at(0)} yLabels={['% CPU']}/>
+            <LinearChart data={iostat?.at(1)} yLabels={['% Disk']}/>
+            <LinearChart data={iostat?.at(2)} yLabels={['Read (MB/s)', 'Write (MB/s)']}/>
+            <LinearChart data={iostat?.at(3)} yLabels={['Read (MB/s)', 'Write (MB/s)', '% Disk']}/>
+            {/*<PieChart2d data={blktrace[1]}/>*/}
         </div>
     );
 }

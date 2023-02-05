@@ -10,6 +10,8 @@ const customAxios = axios.create(
 export const axiosStart = (url: string, datasetName: string) =>
     customAxios.get(`start/?url=${url}/datasetName=${datasetName}`)
 
+export const axiosIostat = () => customAxios.get('monitor/iostat')
+
 // export const axiosWeekInf = () => customAxios.get('week_info')
 //
 // export const axiosFantasyTeam = () => customAxios.get('fantasyteam')

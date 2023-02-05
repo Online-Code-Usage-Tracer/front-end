@@ -1,5 +1,5 @@
 import axios from "axios";
-// {1: [{x: '22', y: '10.5'}, {x: '23', y: '11.5'}, ], 2: ...}
+
 const customAxios = axios.create(
     {
         baseURL: 'http://localhost:8000',

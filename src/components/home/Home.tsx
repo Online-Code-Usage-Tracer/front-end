@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import './Charts.css';
+import './Home.css';
+import '../inputModal/InputModal.css'
 import {useRecoilValue} from "recoil";
 import {inputModalDisplayState} from "../inputModal/InputModal";
 import {LinearChart} from "./linearChart/LinearChart";
-import {PieChart2d} from "./pieChart2d/PieChart2d";
 import {axiosIostat} from "../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess} from "../../global/Errors";
 import {CircularProgress} from "@mui/material";
+import {Header} from "./header/Header";
 
-export function Charts() {
+export function Home() {
     const modalDisplay = useRecoilValue(inputModalDisplayState)
+
     type iostatType = [
         {
             diagram: string,
@@ -29,7 +31,26 @@ export function Charts() {
         }
     ]
 
-    const [iostat, setIostat] = useState<iostatType | undefined>(undefined)
+    const [iostat, setIostat] = useState<iostatType | undefined>(
+        [
+            {
+                diagram: 'a',
+                data: [{time: 10, "% CPU": 10}]
+            },
+            {
+                diagram: 'b',
+                data: [{time: 10, "% Disk": 10}]
+            },
+            {
+                diagram: 'c',
+                data: [{time: 1010, "Read (MB/s)": 10, "Write (MB/s)": 10}]
+            },
+            {
+                diagram: 'string',
+                data: [{time: 10, "Read (MB/s)": 10, "Write (MB/s)": 10, "% Disk": 10}]
+            }
+        ]
+    )
     const [blktrace, setBlktrace] = useState<any>({1: [], 2: [], 3: [], 4: []})
 
     function every() {
@@ -55,9 +76,13 @@ export function Charts() {
     return (
         <div>
             {
-                iostat === undefined ?
-                    <CircularProgress/> :
+                iostat === undefined || blktrace === undefined ?
+                    <div className={'loading-div'}>
+                        <CircularProgress thickness={3} style={{color: '#3D195B'}}/>
+                    </div>
+                    :
                     <div>
+                        <Header/>
                         <LinearChart data={iostat?.at(0)} yLabels={['% CPU']}/>
                         <LinearChart data={iostat?.at(1)} yLabels={['% Disk']}/>
                         <LinearChart data={iostat?.at(2)} yLabels={['Read (MB/s)', 'Write (MB/s)']}/>

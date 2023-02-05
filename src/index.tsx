@@ -34,7 +34,7 @@ root.render(
                 </IconButton>
             )} iconVariant={getIconVariant()} maxSnack={5} TransitionProps={{direction: 'up'}}
                               style={{fontFamily: 'Vazirmatn, serif', direction: 'rtl'}}>
-            <App/>
+                <App/>
             </SnackbarProvider>
         </RecoilRoot>
     </React.StrictMode>

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './LinearChart.css';
 import {CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
-import {iostatDataType1, iostatDataType2, iostatDataType3, iostatDataType4} from "../../../../global/Types";
+import {iostatDataType1, iostatDataType2, iostatDataType3, iostatDataType4} from "../../../../../global/Types";
+import {colors} from "../../../../../global/General";
 
 export function LinearChart({
                                 name,
@@ -13,7 +14,6 @@ export function LinearChart({
     yLabels: string[]
 }) {
     const initial = {mean: 0, max: 0, min: Number.POSITIVE_INFINITY}
-    const colors = ['#8884d8', '#82ca9d', '#ad7e25', '#ff0000', '#00ff00', '#0000ff', '#000000', '#ffffff']
     const [analysis, setAnalysis] = useState<any>(initial)
 
     const getData = () => {
@@ -51,9 +51,9 @@ export function LinearChart({
                         [
                             <div className={'analysis-label'}>{label}</div>,
                             <div className={'analysis-values'}>
-                                <div className={'analysis'}>Mean: {analysis[label]?.mean}</div>
-                                <div>Max: {analysis[label]?.max}</div>
-                                <div>Min: {analysis[label]?.min}</div>
+                                <div className={'analysis'}>Avg: {(analysis[label]?.mean)?.toFixed(2)}</div>
+                                <div>Max: {(analysis[label]?.max)?.toFixed(2)}</div>
+                                <div>Min: {(analysis[label]?.min)?.toFixed(2)}</div>
                             </div>
                         ]
                     )
@@ -64,7 +64,7 @@ export function LinearChart({
 
     return (
         <div className={'linear-chart'}>
-            <div className={'chart-name'}>{name}</div>
+            <div className={'linear-chart-name'}>{name}</div>
             <div className={'chart-main-part-container'}>
                 <LineChart className={'line-chart'} key={`lc_${data.length}`} width={700} height={400} data={data}>
                     {
@@ -73,8 +73,8 @@ export function LinearChart({
                                          stroke={colors.at(index)}/>
                         })
                     }
-                    <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
-                    <XAxis dataKey={'x'} stroke={'rgba(206,25,67,0.83)'}/>
+                    <CartesianGrid stroke="#ccc" strokeDasharray="3 3"/>
+                    <XAxis dataKey={'time'} stroke={'rgba(206,25,67,0.83)'}/>
                     <YAxis stroke={'rgba(206,25,67,0.83)'}/>
                     <Tooltip/>
                     <Legend/>

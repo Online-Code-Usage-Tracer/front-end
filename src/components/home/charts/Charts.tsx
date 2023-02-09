@@ -1,55 +1,137 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './Charts.css';
-import {LinearChart} from "./linearChart/LinearChart";
-import {iostatType} from "../../../global/Types";
-import {useRecoilValue} from "recoil";
-import {inputModalDisplayState} from "../../inputModal/InputModal";
+import {blktraceType, iostatType} from "../../../global/Types";
 import {CircularProgress} from "@mui/material";
+import {IostatCharts} from "./iostatCharts/IostatCharts";
+import {BlktraceCharts} from "./blktraceCharts/BlktraceCharts";
 
 export function Charts() {
-    const modalDisplay = useRecoilValue(inputModalDisplayState)
-
     const [iostat, setIostat] = useState<iostatType | undefined>(
         [
             {
-                diagram: 'adfghnbv',
-                data: [{time: 10, "% CPU": 10}]
+                "diagram": "Processor Utility",
+                "data": [
+                    {
+                        "time": 34.74632525444031,
+                        "% CPU": 19.26
+                    }
+                ]
             },
             {
-                diagram: 'bdsfdgf',
-                data: [{time: 10, "% Disk": 10}]
+                "diagram": "Disk Utiliy",
+                "data": [
+                    {
+                        "time": 34.74632525444031,
+                        "% Disk": 3.77
+                    }
+                ]
             },
             {
-                diagram: 'cdsfdbg',
-                data: [{time: 1010, "Read (MB/s)": 10, "Write (MB/s)": 10}]
+                "diagram": "Bandwidth",
+                "data": [
+                    {
+                        "time": 34.74632525444031,
+                        "Read (MB/s)": 0.9,
+                        "Write (MB/s)": 1.04
+                    }
+                ]
             },
             {
-                diagram: 'string',
-                data: [{time: 10, "Read (MB/s)": 10, "Write (MB/s)": 10, "% Disk": 10}]
+                "diagram": "Disk Utiliy vs Bandwidth",
+                "data": [
+                    {
+                        "time": 34.74632525444031,
+                        "Read (MB/s)": 0.9,
+                        "Write (MB/s)": 1.04,
+                        "% Disk": 3.77
+                    }
+                ]
             }
         ]
     )
-    const [blktrace, setBlktrace] = useState<any>({1: [], 2: [], 3: [], 4: []})
 
-    function every() {
-        // axiosIostat().then(
-        //     res =>
-        //         onAxiosSuccess({
-        //             res: res, onSuccess: () => setIostat(res.data)
-        //         })
-        //     ,
-        //     error =>
-        //         onAxiosError({axiosError: error})
-        // )
-    }
-
-    useEffect(() => {
-        if (modalDisplay === 'none') {
-            every()
-            const interval = setInterval(every, 3 * 1000)
-            return () => clearInterval(interval)
-        }
-    }, [modalDisplay])
+    const [blktrace, setBlktrace] = useState<blktraceType | undefined>([
+            {
+                "diagram": "Read/Write",
+                "data": {
+                    "Read": 340440,
+                    "Write": 992
+                }
+            },
+            {
+                "diagram": "Distribution of I/O Sizes",
+                "data": {
+                    "data": {
+                        "Read": {
+                            "1-4": 1411,
+                            "5-8": 286,
+                            "9-12": 151,
+                            "13-16": 287,
+                            "17-20": 162,
+                            "21-24": 148,
+                            "25-48": 551,
+                            "49-64": 221,
+                            "65-128": 1065,
+                            ">128": 13
+                        },
+                        "Write": {
+                            "1-4": 15,
+                            "5-8": 3,
+                            "9-12": 0,
+                            "13-16": 0,
+                            "17-20": 0,
+                            "21-24": 1,
+                            "25-48": 0,
+                            "49-64": 0,
+                            "65-128": 2,
+                            ">128": 1
+                        }
+                    },
+                    "analysis": {
+                        "Min": {
+                            "Read": 4,
+                            "Write": 4
+                        },
+                        "Max": {
+                            "Read": 672,
+                            "Write": 164
+                        },
+                        "Avg": {
+                            "Read": 39.63213038416764,
+                            "Write": 22.545454545454547
+                        }
+                    }
+                }
+            },
+            {
+                "diagram": "Read/Write-Intensive",
+                "data": [
+                    {
+                        "Start Time": "10/02/2023 02:04:26",
+                        "End Time": "10/02/2023 02:04:44",
+                        "Data": "Read"
+                    },
+                    {
+                        "Start Time": "10/02/2023 02:04:44",
+                        "End Time": "10/02/2023 02:04:76",
+                        "Data": "Write"
+                    }
+                ]
+            },
+            {
+                "diagram": "Access Frequency Distribution (Total R/W)",
+                "data": {
+                    "1-2": 341360,
+                    "3-4": 8,
+                    "5-6": 0,
+                    "7-8": 0,
+                    "9-10": 0,
+                    "11-12": 0,
+                    ">12": 0
+                }
+            }
+        ]
+    )
 
     return (
         <div>
@@ -59,16 +141,9 @@ export function Charts() {
                         <CircularProgress thickness={3} style={{color: '#3D195B'}}/>
                     </div>
                     :
-                    <div id={'charts'}>
-                        <LinearChart name={iostat.at(0)!.diagram}
-                                     data={iostat.at(0)!.data} yLabels={['% CPU']}/>
-                        <LinearChart name={iostat.at(1)!.diagram}
-                                     data={iostat.at(1)!.data} yLabels={['% Disk']}/>
-                        <LinearChart name={iostat.at(2)!.diagram}
-                                     data={iostat.at(2)!.data} yLabels={['Read (MB/s)', 'Write (MB/s)']}/>
-                        <LinearChart name={iostat.at(3)!.diagram}
-                                     data={iostat.at(3)!.data} yLabels={['Read (MB/s)', 'Write (MB/s)', '% Disk']}/>
-                        {/*<PieChart2d data={blktrace[1]}/>*/}
+                    <div>
+                        <IostatCharts iostat={iostat} setIostat={setIostat}/>
+                        <BlktraceCharts blktrace={blktrace} setBlktrace={setBlktrace}/>
                     </div>
             }
         </div>

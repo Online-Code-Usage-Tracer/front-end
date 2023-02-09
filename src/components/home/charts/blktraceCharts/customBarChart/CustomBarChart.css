@@ -1,0 +1,18 @@
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    border-width: 3px 3px 7px;
+    border-style: solid;
+    border-color: #00dcac;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+.bar-chart-name {
+    background: #00dcac;
+    height: 30px;
+    vertical-align: middle;
+    padding-left: 10px;
+    font: 700 20px "sans-serif";
+    color: #363684;
+}

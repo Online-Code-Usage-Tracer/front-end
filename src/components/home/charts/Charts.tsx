@@ -141,7 +141,6 @@ export function Charts() {
     // )
 
     useEffect(() => {
-        console.log('useEffect')
         if (inputModalDisplay === 'none') {
             everyBlktrace()
             const interval = setInterval(everyBlktrace, 60 * 1000)
@@ -150,7 +149,6 @@ export function Charts() {
     }, [inputModalDisplay])
 
     function everyBlktrace() {
-        console.log('every')
         axiosBlktrace().then(
             res =>
                 onAxiosSuccess({

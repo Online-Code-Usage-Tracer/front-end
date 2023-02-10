@@ -10,7 +10,7 @@ export const inputModalDisplayState = atom<'none' | 'block'>({
     default: 'block'
 })
 
-const datasets: string[] = ['image_stitching', 'B', 'C']
+const datasets: string[] = ['image_stitching', 'MNIST', 'C']
 export const datasetNameState = atom<string>({
     key: 'datasetNameState',
     default: datasets.at(0)

@@ -13,7 +13,7 @@ export function onAxiosSuccess({
     onSuccess?: () => void, onError?: () => void, onSuccessReturnValue?: any, onErrorReturnValue?: any
 }) {
 
-    if (res.status === 200) {
+    if (res.status === 200 || res.status === 307) {
         if (onSuccess)
             onSuccess()
 

@@ -66,7 +66,7 @@ export function LinearChart({
         <div className={'linear-chart'}>
             <div className={'linear-chart-name'}>{name}</div>
             <div className={'chart-main-part-container'}>
-                <LineChart className={'line-chart'} key={`lc_${data.length}`} width={500} height={400} data={data}>
+                <LineChart className={'line-chart'} key={`lc_${data.length}`} width={600} height={400} data={data}>
                     {
                         yLabels.map((label, index) => {
                             return <Line name={label} type="monotone" dataKey={label} isAnimationActive={false}

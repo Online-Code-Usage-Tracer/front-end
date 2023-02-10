@@ -1,35 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import './IostatCharts.css'
 import {LinearChart} from "./linearChart/LinearChart";
-import {useRecoilValue} from "recoil";
-import {inputModalDisplayState} from "../../../inputModal/InputModal";
 import {iostatType} from "../../../../global/Types";
-import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
-import {axiosIostat} from "../../../../global/ApiCalls";
 
-export function IostatCharts({iostat, setIostat}: { iostat: iostatType, setIostat: (iostat: iostatType) => void }) {
-    const inputModalDisplay = useRecoilValue(inputModalDisplayState)
-
-    useEffect(() => {
-        if (inputModalDisplay === 'none') {
-            every()
-            const interval = setInterval(every, 60 * 1000)
-            return () => clearInterval(interval)
-        }
-    }, [inputModalDisplay])
-
-    function every() {
-        axiosIostat().then(
-            res =>
-                onAxiosSuccess({
-                    res: res, onSuccess: () => setIostat(res.data)
-                })
-            ,
-            error =>
-                onAxiosError({axiosError: error})
-        )
-    }
-
+export function IostatCharts({iostat}: { iostat: iostatType }) {
     return (
         <div className={'iostat-charts'}>
             <LinearChart name={iostat.at(0)!.diagram}

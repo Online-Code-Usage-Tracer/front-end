@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Charts.css';
 import {blktraceType, iostatType} from "../../../global/Types";
 import {CircularProgress} from "@mui/material";
 import {IostatCharts} from "./iostatCharts/IostatCharts";
 import {BlktraceCharts} from "./blktraceCharts/BlktraceCharts";
+import {axiosBlktrace, axiosIostat} from "../../../global/ApiCalls";
+import {onAxiosError, onAxiosSuccess} from "../../../global/Errors";
+import {useRecoilValue} from "recoil";
+import {inputModalDisplayState} from "../../inputModal/InputModal";
 
 export function Charts() {
+    const inputModalDisplay = useRecoilValue(inputModalDisplayState)
+
     const [iostat, setIostat] = useState<iostatType | undefined>(undefined)
     //     [
     //         {
@@ -51,7 +57,7 @@ export function Charts() {
     // )
 
     const [blktrace, setBlktrace] = useState<blktraceType | undefined>(undefined)
-        // [
+    // [
     //         {
     //             "diagram": "Read/Write",
     //             "data": {
@@ -134,6 +140,48 @@ export function Charts() {
     //     ]
     // )
 
+    useEffect(() => {
+        console.log('useEffect')
+        if (inputModalDisplay === 'none') {
+            everyBlktrace()
+            const interval = setInterval(everyBlktrace, 60 * 1000)
+            return () => clearInterval(interval)
+        }
+    }, [inputModalDisplay])
+
+    function everyBlktrace() {
+        console.log('every')
+        axiosBlktrace().then(
+            res =>
+                onAxiosSuccess({
+                    res: res, onSuccess: () => setBlktrace(res.data)
+                })
+            ,
+            error =>
+                onAxiosError({axiosError: error})
+        )
+    }
+
+    useEffect(() => {
+        if (inputModalDisplay === 'none') {
+            everyIostat()
+            const interval = setInterval(everyIostat, 60 * 1000)
+            return () => clearInterval(interval)
+        }
+    }, [inputModalDisplay])
+
+    function everyIostat() {
+        axiosIostat().then(
+            res =>
+                onAxiosSuccess({
+                    res: res, onSuccess: () => setIostat(res.data)
+                })
+            ,
+            error =>
+                onAxiosError({axiosError: error})
+        )
+    }
+
     return (
         <div>
             {
@@ -143,8 +191,8 @@ export function Charts() {
                     </div>
                     :
                     <div>
-                        <IostatCharts iostat={iostat} setIostat={setIostat}/>
-                        <BlktraceCharts blktrace={blktrace} setBlktrace={setBlktrace}/>
+                        <IostatCharts iostat={iostat}/>
+                        <BlktraceCharts blktrace={blktrace}/>
                     </div>
             }
         </div>

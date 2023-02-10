@@ -1,36 +1,10 @@
-import React, {useEffect} from "react";
+import React from "react";
 import './BlktraceCharts.css'
-import {useRecoilValue} from "recoil";
-import {inputModalDisplayState} from "../../../inputModal/InputModal";
 import {CustomBarChart} from "./customBarChart/CustomBarChart";
 import {TimelineChart} from "./timelineChart/TimelineChart";
 import {PieCharts} from "./pieCharts/PieCharts";
-import {axiosBlktrace} from "../../../../global/ApiCalls";
-import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
 
-export function BlktraceCharts({blktrace, setBlktrace}: { blktrace: any, setBlktrace: (blktrace: any) => void }) {
-    const inputModalDisplay = useRecoilValue(inputModalDisplayState)
-
-    useEffect(() => {
-        if (inputModalDisplay === 'none') {
-            every()
-            const interval = setInterval(every, 60 * 1000)
-            return () => clearInterval(interval)
-        }
-    }, [inputModalDisplay])
-
-    function every() {
-        axiosBlktrace().then(
-            res =>
-                onAxiosSuccess({
-                    res: res, onSuccess: () => setBlktrace(res.data)
-                })
-            ,
-            error =>
-                onAxiosError({axiosError: error})
-        )
-    }
-
+export function BlktraceCharts({blktrace}: { blktrace: any }) {
     return (
         <div className={'blktrace-charts'}>
             <PieCharts blktrace={blktrace}/>

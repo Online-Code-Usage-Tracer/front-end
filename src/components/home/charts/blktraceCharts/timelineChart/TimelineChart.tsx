@@ -37,7 +37,7 @@ export function TimelineChart({
                 "Program Run",
                 element["Data"],
                 new Date(start_year, start_month, start_day, start_hour, start_minute, start_second),
-                new Date(end_year, end_month, end_day, end_hour, end_minute, end_second),
+                new Date(end_year, end_month, end_day, end_hour, end_minute, end_second)
             ])
         }
 

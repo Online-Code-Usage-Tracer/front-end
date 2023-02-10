@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import "./InputModal.css"
 import {atom, useRecoilState} from "recoil";
 import {CircularProgress} from "@mui/material";
-import {onMyError} from "../../global/Errors";
+import {onAxiosError, onAxiosSuccess, onMyError} from "../../global/Errors";
+import {axiosStart} from "../../global/ApiCalls";
 
 export const inputModalDisplayState = atom<'none' | 'block'>({
     key: 'inputModalDisplayState',
@@ -46,21 +47,21 @@ export function InputModal() {
 
         setModalDisplayState('none')
         setIsLoading(false)
-        // axiosStart(url, datasetName).then(
-        //     res =>
-        //         onAxiosSuccess({
-        //             res: res, onSuccess: () => {
-        //                 setModalDisplayState('none')
-        //                 setIsLoading(false)
-        //             }
-        //         })
-        //     ,
-        //     error =>
-        //         onAxiosError({
-        //             axiosError: error,
-        //             onError: () => setIsLoading(false)
-        //         })
-        // )
+        axiosStart(url, datasetName).then(
+            res =>
+                onAxiosSuccess({
+                    res: res, onSuccess: () => {
+                        setModalDisplayState('none')
+                        setIsLoading(false)
+                    }
+                })
+            ,
+            error =>
+                onAxiosError({
+                    axiosError: error,
+                    onError: () => setIsLoading(false)
+                })
+        )
     }
 
     const onDatasetNameChange = (event: any) => {

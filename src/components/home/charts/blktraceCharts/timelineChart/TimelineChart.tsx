@@ -7,13 +7,6 @@ export function TimelineChart({
                                   name,
                                   data
                               }: { name: string, data: blktraceDataType3 }) {
-    // [
-    //                     {
-    //                         "Start Time": "10/02/2023 02:04:26",
-    //                         "End Time": "10/02/2023 02:04:44",
-    //                         "Data": "Read"
-    //                     }
-    //                 ]
 
     const convertDataToShow = () => {
         const returnData: any = [
@@ -67,7 +60,7 @@ export function TimelineChart({
             <Chart
                 chartType="Timeline"
                 data={convertDataToShow()}
-                width="700"
+                width="500"
                 height={"150px"}
                 options={options}
             />

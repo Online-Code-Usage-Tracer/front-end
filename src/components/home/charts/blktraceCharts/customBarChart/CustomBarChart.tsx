@@ -99,7 +99,7 @@ export function CustomBarChart({
         <div className={'bar-chart'}>
             <div className={'bar-chart-name'}>{name}</div>
             <BarChart key={`lc_${newData.length}`}
-                      width={780}
+                      width={600}
                       height={500}
                       data={convertDataToShow()}
                       margin={{

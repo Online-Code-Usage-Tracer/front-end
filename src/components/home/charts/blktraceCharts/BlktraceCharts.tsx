@@ -12,9 +12,7 @@ export function BlktraceCharts({blktrace, setBlktrace}: { blktrace: any, setBlkt
     const inputModalDisplay = useRecoilValue(inputModalDisplayState)
 
     useEffect(() => {
-        console.log('??')
         if (inputModalDisplay === 'none') {
-            console.log('bbbb')
             every()
             const interval = setInterval(every, 60 * 1000)
             return () => clearInterval(interval)
@@ -22,7 +20,6 @@ export function BlktraceCharts({blktrace, setBlktrace}: { blktrace: any, setBlkt
     }, [inputModalDisplay])
 
     function every() {
-        console.log('aa')
         axiosBlktrace().then(
             res =>
                 onAxiosSuccess({

@@ -27,7 +27,7 @@ export const nameState = atom<string>({
 })
 
 export function InputModal() {
-    const [modalDisplay, setModalDisplayState] = useRecoilState(inputModalDisplayState)
+    const [inputModalDisplay, setInputModalDisplay] = useRecoilState(inputModalDisplayState)
     const [datasetName, setDatasetName] = useRecoilState(datasetNameState)
     const [url, setUrl] = useRecoilState(urlState)
     const [name, setName] = useRecoilState(nameState)
@@ -45,13 +45,11 @@ export function InputModal() {
             return
         }
 
-        setModalDisplayState('none')
-        setIsLoading(false)
         axiosStart(url, datasetName).then(
             res =>
                 onAxiosSuccess({
                     res: res, onSuccess: () => {
-                        setModalDisplayState('none')
+                        setInputModalDisplay('none')
                         setIsLoading(false)
                     }
                 })
@@ -77,7 +75,7 @@ export function InputModal() {
     }
 
     return (
-        <div className={'confirmation-modal-div'} style={{display: modalDisplay}} tabIndex={0}>
+        <div className={'confirmation-modal-div'} style={{display: inputModalDisplay}} tabIndex={0}>
             <div className={'modal-header'}>Input</div>
             {
                 isLoading ?

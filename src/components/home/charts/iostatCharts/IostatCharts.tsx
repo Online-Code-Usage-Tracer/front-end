@@ -8,15 +8,15 @@ import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
 import {axiosIostat} from "../../../../global/ApiCalls";
 
 export function IostatCharts({iostat, setIostat}: { iostat: iostatType, setIostat: (iostat: iostatType) => void }) {
-    const modalDisplay = useRecoilValue(inputModalDisplayState)
+    const inputModalDisplay = useRecoilValue(inputModalDisplayState)
 
     useEffect(() => {
-        if (modalDisplay === 'none') {
+        if (inputModalDisplay === 'none') {
             every()
             const interval = setInterval(every, 60 * 1000)
             return () => clearInterval(interval)
         }
-    }, [modalDisplay])
+    }, [inputModalDisplay])
 
     function every() {
         axiosIostat().then(

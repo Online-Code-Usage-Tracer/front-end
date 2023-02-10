@@ -9,17 +9,20 @@ import {axiosBlktrace} from "../../../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
 
 export function BlktraceCharts({blktrace, setBlktrace}: { blktrace: any, setBlktrace: (blktrace: any) => void }) {
-    const modalDisplay = useRecoilValue(inputModalDisplayState)
+    const inputModalDisplay = useRecoilValue(inputModalDisplayState)
 
     useEffect(() => {
-        if (modalDisplay === 'none') {
+        console.log('??')
+        if (inputModalDisplay === 'none') {
+            console.log('bbbb')
             every()
             const interval = setInterval(every, 60 * 1000)
             return () => clearInterval(interval)
         }
-    }, [modalDisplay])
+    }, [inputModalDisplay])
 
     function every() {
+        console.log('aa')
         axiosBlktrace().then(
             res =>
                 onAxiosSuccess({

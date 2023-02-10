@@ -8,6 +8,8 @@ const customAxios = axios.create(
 );
 
 export const axiosStart = (url: string, datasetName: string) =>
-    customAxios.get(`start/?url=${url}/datasetName=${datasetName}`)
+    customAxios.post(`start/?url=${url}/datasetName=${datasetName}`)
 
 export const axiosIostat = () => customAxios.get('monitor/iostat')
+
+export const axiosBlktrace = () => customAxios.get('monitor/blktrace')

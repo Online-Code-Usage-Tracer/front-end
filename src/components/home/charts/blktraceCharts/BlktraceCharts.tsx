@@ -5,7 +5,7 @@ import {inputModalDisplayState} from "../../../inputModal/InputModal";
 import {CustomBarChart} from "./customBarChart/CustomBarChart";
 import {TimelineChart} from "./timelineChart/TimelineChart";
 import {PieCharts} from "./pieCharts/PieCharts";
-import {axiosIostat} from "../../../../global/ApiCalls";
+import {axiosBlktrace} from "../../../../global/ApiCalls";
 import {onAxiosError, onAxiosSuccess} from "../../../../global/Errors";
 
 export function BlktraceCharts({blktrace, setBlktrace}: { blktrace: any, setBlktrace: (blktrace: any) => void }) {
@@ -20,7 +20,7 @@ export function BlktraceCharts({blktrace, setBlktrace}: { blktrace: any, setBlkt
     }, [modalDisplay])
 
     function every() {
-        axiosIostat().then(
+        axiosBlktrace().then(
             res =>
                 onAxiosSuccess({
                     res: res, onSuccess: () => setBlktrace(res.data)

@@ -1,5 +1,5 @@
 # front-end
-It was our project in OS course at Sharif University of Technology in fall 2022. It traces usage of resources and show the results in many beautiful charts. The implemented charts are:
+It was our project in the OS course at Sharif University of Technology in the fall of 2022. It traces the usage of resources and shows the results in many beautiful charts. The implemented charts are:
 - Line Chart:
   - Processor Utility
   - Disk Utility
@@ -13,6 +13,22 @@ It was our project in OS course at Sharif University of Technology in fall 2022.
 - Timeline:
   - Read/Write Intensive
 ---
-### Sample Charts
-- Processor Utility
-![alt text](https://github.com/AmirMohammadFakhimi/ASM-Chart-Simulation/blob/fd36799f08b1e1a37234173fd6ba1c0298aba669/Sample%20ASM%20Chart.png?raw=true)
+### Web App Images
+- User Input
+
+![User input which contains his name, code URL and a select between datasets](https://github.com/Online-Code-Usage-Tracer/front-end/blob/57188c2e4826dd71cb819bf194e125df56378190/readme_assets/input.png)
+- Processor Utility & Disk Utility
+
+![Processor utility & disk utility charts](https://github.com/Online-Code-Usage-Tracer/front-end/blob/57188c2e4826dd71cb819bf194e125df56378190/readme_assets/1.jpeg)
+- Disk Bandwidth & Disk Utility vs Disk Bandwidth
+
+![Disk bandwidth & disk utility charts](https://github.com/Online-Code-Usage-Tracer/front-end/blob/57188c2e4826dd71cb819bf194e125df56378190/readme_assets/2.jpeg)
+- Disk Read/Write
+
+![Disk read/write charts. 2d and 3d pie charts.](https://github.com/Online-Code-Usage-Tracer/front-end/blob/57188c2e4826dd71cb819bf194e125df56378190/readme_assets/3.jpeg)
+- Distribution of I/O Sizes & Access Frequency Distribution (Total R/W)
+
+![Distribution of I/O sizes & access frequency distribution (total r/w)](https://github.com/Online-Code-Usage-Tracer/front-end/blob/57188c2e4826dd71cb819bf194e125df56378190/readme_assets/4.jpeg)
+- Read/Write Intensive
+
+![Read/Write intensive timeline](https://github.com/Online-Code-Usage-Tracer/front-end/blob/57188c2e4826dd71cb819bf194e125df56378190/readme_assets/5.jpeg)

@@ -1,5 +1,5 @@
 # front-end
-It was our project in the OS course at Sharif University of Technology in the fall of 2022. It traces the usage of resources and shows the results in many beautiful charts. The implemented charts are:
+It was our project in the OS course at Sharif University of Technology in the fall of 2022. It traces the usage of resources and shows the results in many beautiful charts. Charts update every minute. The implemented charts are:
 - Line Chart:
   - Processor Utility
   - Disk Utility
